@@ -36,11 +36,21 @@
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
       <version>1.8.8-R0.1-SNAPSHOT</version>
-      <scope>provided</scope>
 	</dependency>
+
+    <dependency>
+      <groupId>vg.civcraft.mc.civmodcore</groupId>
+      <artifactId>CivModCore</artifactId>
+      <version>1.2.01</version>
+    </dependency>
   </dependencies>
   
   <repositories>
+
+    <repository>
+      <id>civcraft</id>
+      <url>http://build.civcraft.co:8080/plugin/repository/everything/</url>
+    </repository>
     <repository>
       <id>bukkit-repo</id>
       <url>http://repo.bukkit.org/content/groups/public/</url>
