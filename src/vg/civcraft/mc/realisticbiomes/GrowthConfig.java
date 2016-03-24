@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes;
+package vg.civcraft.mc.realisticbiomes;
 
 import java.util.ArrayList;
 import java.util.HashMap;

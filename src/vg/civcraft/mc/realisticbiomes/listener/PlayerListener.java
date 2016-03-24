@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.listener;
+package vg.civcraft.mc.realisticbiomes.listener;
 
 import java.text.DecimalFormat;
 import java.util.logging.Level;
@@ -12,12 +12,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import com.untamedears.realisticbiomes.GrowthConfig;
-import com.untamedears.realisticbiomes.GrowthMap;
-import com.untamedears.realisticbiomes.RealisticBiomes;
-import com.untamedears.realisticbiomes.persist.Plant;
-import com.untamedears.realisticbiomes.utils.Fruits;
-import com.untamedears.realisticbiomes.utils.MaterialAliases;
+import vg.civcraft.mc.realisticbiomes.GrowthConfig;
+import vg.civcraft.mc.realisticbiomes.GrowthMap;
+import vg.civcraft.mc.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.persist.Plant;
+import vg.civcraft.mc.realisticbiomes.utils.Fruits;
+import vg.civcraft.mc.realisticbiomes.utils.MaterialAliases;
 
 public class PlayerListener implements Listener {
 	

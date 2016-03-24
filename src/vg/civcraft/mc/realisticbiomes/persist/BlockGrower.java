@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,11 +20,11 @@ import org.bukkit.material.MaterialData;
 import org.bukkit.material.NetherWarts;
 import org.bukkit.util.Vector;
 
-import com.untamedears.realisticbiomes.DropGrouper;
-import com.untamedears.realisticbiomes.GrowthMap;
-import com.untamedears.realisticbiomes.RealisticBiomes;
-import com.untamedears.realisticbiomes.utils.Fruits;
-import com.untamedears.realisticbiomes.utils.Trees;
+import vg.civcraft.mc.realisticbiomes.DropGrouper;
+import vg.civcraft.mc.realisticbiomes.GrowthMap;
+import vg.civcraft.mc.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.utils.Fruits;
+import vg.civcraft.mc.realisticbiomes.utils.Trees;
 
 // handles force-growing of crop-type blocks based on a fractional growth amount
 public class BlockGrower {

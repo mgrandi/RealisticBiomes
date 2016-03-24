@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes;
+package vg.civcraft.mc.realisticbiomes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,16 +15,16 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.untamedears.realisticbiomes.GrowthConfig.Type;
-import com.untamedears.realisticbiomes.listener.GrowListener;
-import com.untamedears.realisticbiomes.listener.PlayerListener;
-import com.untamedears.realisticbiomes.listener.SpawnListener;
-import com.untamedears.realisticbiomes.persist.BlockGrower;
-import com.untamedears.realisticbiomes.persist.ChunkCoords;
-import com.untamedears.realisticbiomes.persist.Plant;
-import com.untamedears.realisticbiomes.persist.PlantManager;
-import com.untamedears.realisticbiomes.utils.Fruits;
-import com.untamedears.realisticbiomes.utils.MaterialAliases;
+import vg.civcraft.mc.realisticbiomes.GrowthConfig.Type;
+import vg.civcraft.mc.realisticbiomes.listener.GrowListener;
+import vg.civcraft.mc.realisticbiomes.listener.PlayerListener;
+import vg.civcraft.mc.realisticbiomes.listener.SpawnListener;
+import vg.civcraft.mc.realisticbiomes.persist.BlockGrower;
+import vg.civcraft.mc.realisticbiomes.persist.ChunkCoords;
+import vg.civcraft.mc.realisticbiomes.persist.Plant;
+import vg.civcraft.mc.realisticbiomes.persist.PlantManager;
+import vg.civcraft.mc.realisticbiomes.utils.Fruits;
+import vg.civcraft.mc.realisticbiomes.utils.MaterialAliases;
 
 public class RealisticBiomes extends JavaPlugin {
 
@@ -39,7 +39,7 @@ public class RealisticBiomes extends JavaPlugin {
 	public PersistConfig persistConfig;
 	private PlantManager plantManager;
 
-	
+
 	@Override
 	public void onEnable() {		
 		RealisticBiomes.plugin = this;

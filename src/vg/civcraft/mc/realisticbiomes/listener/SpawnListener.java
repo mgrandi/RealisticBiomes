@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.listener;
+package vg.civcraft.mc.realisticbiomes.listener;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -13,7 +13,7 @@ import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.untamedears.realisticbiomes.GrowthMap;
+import vg.civcraft.mc.realisticbiomes.GrowthMap;
 
 /**
  * Event listeners for animal spawn related events. Whenever animals breed or a fish is caught, the species is checked against

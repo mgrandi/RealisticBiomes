@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.utils;
+package vg.civcraft.mc.realisticbiomes.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import org.bukkit.block.Biome;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-import com.untamedears.realisticbiomes.GrowthMap;
-import com.untamedears.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.GrowthMap;
+import vg.civcraft.mc.realisticbiomes.RealisticBiomes;
 
 public class Trees {
 	

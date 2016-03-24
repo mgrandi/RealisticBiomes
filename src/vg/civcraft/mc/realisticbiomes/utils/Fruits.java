@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.utils;
+package vg.civcraft.mc.realisticbiomes.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.util.Vector;
 
-import com.untamedears.realisticbiomes.persist.BlockGrower;
+import vg.civcraft.mc.realisticbiomes.persist.BlockGrower;
 
 /**
  * Fruit related helper functions. This could be optimized: convert this

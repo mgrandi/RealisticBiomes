@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -24,10 +24,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
 import com.avaje.ebeaninternal.server.lib.sql.DataSourceException;
-import com.untamedears.realisticbiomes.DropGrouper;
-import com.untamedears.realisticbiomes.PersistConfig;
-import com.untamedears.realisticbiomes.RealisticBiomes;
-import com.untamedears.realisticbiomes.utils.MaterialAliases;
+import vg.civcraft.mc.realisticbiomes.DropGrouper;
+import vg.civcraft.mc.realisticbiomes.PersistConfig;
+import vg.civcraft.mc.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.utils.MaterialAliases;
 
 public class PlantManager {
 	private final RealisticBiomes plugin;

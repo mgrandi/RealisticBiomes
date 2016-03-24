@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.logging.Level;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
-import com.untamedears.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.RealisticBiomes;
 
 public class WorldID {
 	/**

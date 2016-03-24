@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.utils;
+package vg.civcraft.mc.realisticbiomes.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Dye;
 import org.bukkit.material.MaterialData;
 import org.bukkit.material.SpawnEgg;
-import com.untamedears.realisticbiomes.GrowthConfig;
-import com.untamedears.realisticbiomes.GrowthMap;
+import vg.civcraft.mc.realisticbiomes.GrowthConfig;
+import vg.civcraft.mc.realisticbiomes.GrowthMap;
 
 public class MaterialAliases {
 	// map Material that a user uses to hit the ground to a Material, TreeType,
@@ -98,7 +98,7 @@ public class MaterialAliases {
 	 */
 	@SuppressWarnings("deprecation")
 	public static GrowthConfig getConfig(GrowthMap growthConfigs,
-			ItemStack item) {
+	                                     ItemStack item) {
 		Material material = item.getType();
 		if (material == Material.SAPLING) {
 			return growthConfigs.get(getTreeType(item.getData().getData()));

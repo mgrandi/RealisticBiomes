@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes;
+package vg.civcraft.mc.realisticbiomes;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,8 +8,8 @@ import org.bukkit.Material;
 import org.bukkit.TreeType;
 import org.bukkit.entity.EntityType;
 
-import com.untamedears.realisticbiomes.GrowthConfig.Type;
-import com.untamedears.realisticbiomes.utils.MaterialAliases;
+import vg.civcraft.mc.realisticbiomes.GrowthConfig.Type;
+import vg.civcraft.mc.realisticbiomes.utils.MaterialAliases;
 
 /**
  * Would probably be best to have box type as key, with material + data or entity

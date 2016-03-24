@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 
 /**
  * Represents the abstract growth status of a single plant, without references to blocks

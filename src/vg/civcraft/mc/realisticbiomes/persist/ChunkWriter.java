@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,8 +6,7 @@ import java.sql.SQLException;
 
 
 import com.avaje.ebeaninternal.server.lib.sql.DataSourceException;
-import com.untamedears.realisticbiomes.PersistConfig;
-import com.untamedears.realisticbiomes.RealisticBiomes;
+import vg.civcraft.mc.realisticbiomes.PersistConfig;
 
 /**
  * basically a container class that holds most of the prepared statements that we will be using often

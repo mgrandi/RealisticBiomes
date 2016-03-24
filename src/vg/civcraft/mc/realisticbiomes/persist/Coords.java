@@ -1,4 +1,4 @@
-package com.untamedears.realisticbiomes.persist;
+package vg.civcraft.mc.realisticbiomes.persist;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.bukkit.block.Block;
