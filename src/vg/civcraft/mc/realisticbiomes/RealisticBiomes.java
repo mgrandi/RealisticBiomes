@@ -15,6 +15,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import vg.civcraft.mc.civmodcore.ACivMod;
 import vg.civcraft.mc.realisticbiomes.GrowthConfig.Type;
 import vg.civcraft.mc.realisticbiomes.listener.GrowListener;
 import vg.civcraft.mc.realisticbiomes.listener.PlayerListener;
@@ -26,12 +27,9 @@ import vg.civcraft.mc.realisticbiomes.persist.PlantManager;
 import vg.civcraft.mc.realisticbiomes.utils.Fruits;
 import vg.civcraft.mc.realisticbiomes.utils.MaterialAliases;
 
-public class RealisticBiomes extends JavaPlugin {
+public class RealisticBiomes extends ACivMod {
 
 	public static RealisticBiomes plugin;
-
-	public static Logger LOG = null;
-	public static Level minLogLevel = Level.INFO;
 	
 	public HashMap<String, List<Biome>> biomeAliases;
 	public GrowthMap materialGrowth;
@@ -39,15 +37,16 @@ public class RealisticBiomes extends JavaPlugin {
 	public PersistConfig persistConfig;
 	private PlantManager plantManager;
 
+	@Override
+	protected String getPluginName() {
+		return "RealisticBiomes";
+	}
 
 	@Override
-	public void onEnable() {		
+	public void onEnable() {
+		this.info("Starting up");
 		RealisticBiomes.plugin = this;
-		
-		RealisticBiomes.LOG = this.getLogger();
-		LOG.info("name of logger is: " + LOG.getName());
-		this.getLogger().setLevel(Level.FINEST);
-		
+
 		// This is done when the world loads now
 		//WorldID.init(this);
 		
@@ -67,24 +66,8 @@ public class RealisticBiomes extends JavaPlugin {
 		loadPersistConfig(config);
 		materialGrowth = loadGrowthConfigs(config.getConfigurationSection("growth"), null);
 		materialGrowth.putAll(loadGrowthConfigs(config.getConfigurationSection("fish_drops"), GrowthConfig.Type.FISHING_DROP));
-
-		// load the max log level for our logging hack
-		// if not defined then its just initalized at INFO
-		String tmp = config.getString("minLogLevel");
-		if (tmp != null) {
-			Level newLevel = Level.INFO;
-			try {
-				newLevel = Level.parse(tmp);
-			} catch (Exception e) {
-				
-				// passed in config value is invalid..just set it to info
-				newLevel = Level.INFO;
-			}
-			minLogLevel = newLevel;
-		}
 		
-		RealisticBiomes.LOG.info("Logging hack, log level is set to: " + RealisticBiomes.minLogLevel.toString());
-		RealisticBiomes.LOG.info("Caching entire database? " + this.persistConfig.cacheEntireDatabase);
+		this.info("Caching entire database? " + this.persistConfig.cacheEntireDatabase);
 		
 		registerEvents();
 		
@@ -94,32 +77,7 @@ public class RealisticBiomes extends JavaPlugin {
 			
 		}
 				
-		LOG.info("is now enabled.");
-	}
-	
-	/**
-	 * Hack to get around the shitty java logging api, where -Djava.util.logging.config=logging.properties
-	 * doesn't seem to work, or i'm not specifying the right levels for the right Logger namespaces or some 
-	 * stuff. You specify the min logging level allowed in the realistic biomes config.yml, with the 'minLogLevel' 
-	 * key, specifed to a string. Either a Level name like INFO, or an integer
-	 * 
-	 * This requires that the static Logger variable in RealisticBiomes has already been created (aka onEnable has been called)
-	 * @param level
-	 * @param message
-	 */
-	public static void doLog(Level level, String message) {
-		
-		
-		if (RealisticBiomes.LOG != null) {
-			
-			// here we make sure that we only log messages that are loggable with the given Level
-			// so if its set to INFO (800) and we try to log a FINER message (400), then it wont work
-			// However if its ALL, then its set to Integer.MIN_VALUE, so everything will get logged. etc etc
-			if (level.intValue() >= RealisticBiomes.minLogLevel.intValue() ) {
-				RealisticBiomes.LOG.info("[" + level.toString() + "] " + message);
-				
-			}	
-		}
+		this.info("is now enabled.");
 	}
 
 	private void loadPersistConfig(ConfigurationSection config) {
@@ -144,13 +102,13 @@ public class RealisticBiomes extends JavaPlugin {
 		
 		persistConfig.cacheEntireDatabase = config.getBoolean("cache_entire_database", false);
 		
-		LOG.info("Persistence enabled: " + persistConfig.enabled);
-		LOG.info("Database: " + persistConfig.databaseName);
+		this.info("Persistence enabled: " + persistConfig.enabled);
+		this.info("Database: " + persistConfig.databaseName);
 		if (persistConfig.productionLogDb || persistConfig.logDB) {
-			LOG.info("Logging enabled");
+			this.info("Logging enabled");
 			if (persistConfig.productionLogDb) {
-				LOG.info("\tLoad event minimum time to log: " + persistConfig.productionLogLoadMintime + "ms");
-				LOG.info("\tUnload event minimum time to log: " + persistConfig.productionLogUnloadMintime + "ms");
+				this.info("\tLoad event minimum time to log: " + persistConfig.productionLogLoadMintime + "ms");
+				this.info("\tUnload event minimum time to log: " + persistConfig.productionLogUnloadMintime + "ms");
 			}
 		}
 	}
@@ -169,7 +127,7 @@ public class RealisticBiomes extends JavaPlugin {
 					biomes.add(biome);
 				}
 				catch(IllegalArgumentException e) {
-					LOG.warning("loading configs: in biome_aliases: \"" + biomeStr +"\" is not a valid biome name.");
+					this.warning("loading configs: in biome_aliases: \"" + biomeStr +"\" is not a valid biome name.");
 				}
 			}
 			
@@ -210,8 +168,8 @@ public class RealisticBiomes extends JavaPlugin {
 						} else if ((inheritKey instanceof TreeType) && materialGrowth.containsKey((TreeType) inheritKey)) {
 							inheritConfig = materialGrowth.get((TreeType) inheritKey);
 						} else {
-							LOG.warning(configSection.getName() + " inherits unknown key: " + inheritKey);
-							LOG.finest("keys: " + materialGrowth.keySet());
+							this.warning(configSection.getName() + " inherits unknown key: " + inheritKey);
+							this.debug("keys: " + materialGrowth.keySet());
 						}
 					}
 				}
@@ -227,7 +185,7 @@ public class RealisticBiomes extends JavaPlugin {
 				// if the name is partially capitalized, then warning the player that
 				// the name might be a misspelling
 				if (materialName.length() > 0 && materialName.matches(".*[A-Z].*"))
-					LOG.warning("config material name: is \""+materialName+"\" misspelled?");
+					this.warning("config material name: is \""+materialName+"\" misspelled?");
 				growthConfigNodes.put(materialName, newGrowthConfig);
 
 			} else if (key instanceof Material){
@@ -237,7 +195,7 @@ public class RealisticBiomes extends JavaPlugin {
 			} else if (key instanceof TreeType){
 				materialGrowth.put((TreeType)key, newGrowthConfig);
 			} else {
-				LOG.warning("unknown key: " + key);
+				this.warning("unknown key: " + key);
 			}
 		}
 		
@@ -277,28 +235,28 @@ public class RealisticBiomes extends JavaPlugin {
 		if (isMat) {
 			if (material != null)
 				return material;
-			LOG.warning("config: \""+materialName+"\" specified material but does not match one.");
+			this.warning("config: \""+materialName+"\" specified material but does not match one.");
 		}
 		if (isTree) {
 			if (treeType != null)
 				return treeType;
-			LOG.warning("config: \""+materialName+"\" specified tree type name but does not match one.");
+			this.warning("config: \""+materialName+"\" specified tree type name but does not match one.");
 		}
 		if (isEntity) {
 			if (entityType != null)
 				return entityType;
-			LOG.warning("config: \""+materialName+"\" specified entity type name but does not match one.");
+			this.warning("config: \""+materialName+"\" specified entity type name but does not match one.");
 		}
 		
 		// wanr user if they are unsing an ambiguous name
 		if (material != null  && entityType != null && treeType != null)
-			LOG.warning("config name: \""+materialName+"\" ambiguous, could be material, tree type, or entity type.");
+			this.warning("config name: \""+materialName+"\" ambiguous, could be material, tree type, or entity type.");
 		if (treeType != null  && material != null)
-			LOG.warning("config name: \""+materialName+"\" ambiguous, could be material or tree type.");
+			this.warning("config name: \""+materialName+"\" ambiguous, could be material or tree type.");
 		if (material != null  && entityType != null)
-			LOG.warning("config name: \""+materialName+"\" ambiguous, could be material or entity type.");
+			this.warning("config name: \""+materialName+"\" ambiguous, could be material or entity type.");
 		if (treeType != null  && entityType != null)
-			LOG.warning("config name: \""+materialName+"\" ambiguous, could be tree type or entity type.");
+			this.warning("config name: \""+materialName+"\" ambiguous, could be tree type or entity type.");
 		
 		// finally just match any type
 		if (material != null)
@@ -314,11 +272,11 @@ public class RealisticBiomes extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		if (persistConfig.enabled) {
-			LOG.info("saving plant growth data.");
+			this.info("saving plant growth data.");
 			plantManager.saveAllAndStop();
 			plantManager = null;
 		}
-		LOG.info("is now disabled.");
+		this.info("is now disabled.");
 	}
 
 	private void registerEvents() {
@@ -330,7 +288,7 @@ public class RealisticBiomes extends JavaPlugin {
 		}
 		catch(Exception e)
 		{
-			LOG.severe("caught an exception while attempting to register events with the PluginManager: " + e);
+			this.severe("caught an exception while attempting to register events with the PluginManager: " + e);
 		}
 	}
 	
@@ -348,7 +306,7 @@ public class RealisticBiomes extends JavaPlugin {
 		if (growthConfig == null) {
 			growthConfig = MaterialAliases.getConfig(materialGrowth, block);
 		}
-		RealisticBiomes.doLog(Level.FINER, "RealisticBiomes:growAndPersistBlock() called for block: " + block + " and is naturalGrowEvent? " + naturalGrowEvent);
+		this.debug("RealisticBiomes:growAndPersistBlock() called for block: " + block + " and is naturalGrowEvent? " + naturalGrowEvent);
 		if (!persistConfig.enabled)
 			return null;
 
@@ -356,7 +314,7 @@ public class RealisticBiomes extends JavaPlugin {
 		
 		boolean loadChunk = naturalGrowEvent ? Math.random() < persistConfig.growEventLoadChance : true;
 		if (!loadChunk && !plantManager.isChunkLoaded(chunckCoords)) {
-			RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growAndPersistBlock(): returning 0.0 because loadChunk = false or plantManager.chunkLoaded(" + chunckCoords + " is false");
+			this.debug("Realisticbiomes.growAndPersistBlock(): returning 0.0 because loadChunk = false or plantManager.chunkLoaded(" + chunckCoords + " is false");
 			return null; // don't load the chunk or do anything
 			
 		}
@@ -365,7 +323,7 @@ public class RealisticBiomes extends JavaPlugin {
 		
 		
 		if (growthConfig == null) {
-			RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growAndPersistBlock(): returning 0.0 because growthConfig = null");
+			this.debug("Realisticbiomes.growAndPersistBlock(): returning 0.0 because growthConfig = null");
 			plantManager.removePlant(block);
 			return null;
 		}
@@ -376,7 +334,7 @@ public class RealisticBiomes extends JavaPlugin {
 		}
 		
 		if (plant == null) {
-			RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growAndPersistBlock(): creating new plant and adding it");
+			this.debug("Realisticbiomes.growAndPersistBlock(): creating new plant and adding it");
 			
 			plant = new Plant((float)BlockGrower.getGrowthFraction(block),
 					(float)BlockGrower.getFruitGrowthFraction(block, fruitBlockToIgnore));
@@ -424,11 +382,11 @@ public class RealisticBiomes extends JavaPlugin {
 						// got a free spot, now grow a fruit there with the fruit's conditions
 						fruitRate = fruitGrowthConfig.getRate(freeBlock);
 						
-						RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growPlant(): fruit rate: " + fruitRate);
+						this.debug("Realisticbiomes.growPlant(): fruit rate: " + fruitRate);
 						
 						plant.growFruit(updateTime, fruitRate);
 					} else {
-						RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growPlant(): no free block for fruit");
+						this.debug("Realisticbiomes.growPlant(): no free block for fruit");
 					}
 
 				} else if (hasFruit) {
@@ -448,7 +406,7 @@ public class RealisticBiomes extends JavaPlugin {
 			growthPrevented = blockGrower.growBlock(block, plant.getGrowth(), plant.getFruitGrowth());
 		}
 		if (growthPrevented) {
-			RealisticBiomes.doLog(Level.FINER, "Realisticbiomes.growPlant(): growth prevented");
+			this.debug("Realisticbiomes.growPlant(): growth prevented");
 			plant.setGrowth(0.0);
 		}
 	}
